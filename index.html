@@ -20,6 +20,11 @@
       padding: 0.5rem 1rem;
       height: 50px;
     }
+    .top-bar-left,
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+    }
     .logo-placeholder,
     .menu-placeholder {
       width: 30px;
@@ -27,19 +32,25 @@
       background-color: #fff;
       border-radius: 3px;
     }
-    .logo-placeholder {
-      margin-right: auto;
-    }
-    .menu-placeholder {
-      margin-left: auto;
+    .logo-text,
+    .menu-text {
+      color: #fff;
+      margin: 0 0.5rem;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
   <div class="top-bar">
-    <div class="logo-placeholder" aria-label="Logo placeholder"></div>
-    <div class="menu-placeholder" aria-label="Menu placeholder"></div>
+    <div class="top-bar-left">
+      <div class="logo-placeholder" aria-label="Logo"></div>
+      <span class="logo-text">logo placeholder</span>
+    </div>
+    <div class="top-bar-right">
+      <span class="menu-text">menu placeholder</span>
+      <div class="menu-placeholder" aria-label="Menu"></div>
+    </div>
   </div>
 
   <header>
