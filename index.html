@@ -8,6 +8,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
     .top-bar {
       position: sticky;
       top: 0;
@@ -44,6 +49,34 @@
       background-color: #fff;
       border-radius: 3px;
     }
+    .hero {
+      display: flex;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .photo {
+      flex: 1;
+      background-color: #ddd;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .hero .text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .hero .text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero .text p {
+      margin-top: auto;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -61,16 +94,22 @@
     </div>
   </div>
 
-  <header>
-    <h1>Earth’s Water Cycle</h1>
-  </header>
+  <section class="hero">
+    <div class="photo">
+      <div class="placeholder">[Photo placeholder]</div>
+    </div>
+    <div class="text">
+      <h1>Earth’s Water Cycle</h1>
+      <p>This article explains <strong>MS-ESS2-4 Earth’s Systems</strong>.</p>
+    </div>
+  </section>
 
   <main>
     <section class="step" id="section-intro">
       <p>Water on Earth is incredibly old. The water in your glass today may have passed through a volcano, a glacier, or even a dinosaur!</p>
       <p>How is that possible?</p>
       <p>Water on Earth doesn't disappear, but it is always on the move. It travels through a continuous journey called <strong>the water cycle</strong>—powered by energy from the Sun.</p>
-      <p>In this reading, you will explore how water moves through the world, and build a model of the water cycle along the way.</p>
+      <p>In this article, you will explore how water moves through the world, and build a model of the water cycle along the way.</p>
     </section>
 
     <section class="step" id="section-evaporation">
