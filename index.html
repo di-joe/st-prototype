@@ -25,12 +25,10 @@
       display: flex;
       align-items: center;
     }
-    .logo-placeholder,
-    .menu-placeholder {
+    .logo-image {
       width: 30px;
       height: 30px;
-      background-color: #fff;
-      border-radius: 3px;
+      object-fit: contain;
     }
     .logo-text,
     .menu-text {
@@ -38,13 +36,21 @@
       margin: 0 0.5rem;
       font-size: 0.9rem;
     }
+    .menu-placeholder {
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
 
   <div class="top-bar">
     <div class="top-bar-left">
-      <div class="logo-placeholder" aria-label="Logo"></div>
+      <a href="https://www.doubleinkpub.com" target="_blank">
+        <img src="flaskLogoSketch.png" alt="Double Ink logo" class="logo-image">
+      </a>
       <span class="logo-text">logo placeholder</span>
     </div>
     <div class="top-bar-right">
