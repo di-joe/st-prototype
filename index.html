@@ -60,8 +60,8 @@
       background-image: url('title_image_fpo.jpg');
       background-size: cover;
       background-position: center;
-      position: fixed;
-      top: 60px;
+      position: absolute;
+      top: 0;
       bottom: 0;
       left: 0;
       width: 50%;
@@ -86,6 +86,11 @@
       position: absolute;
       bottom: 100px;
       width: 100%;
+    }
+    main {
+      position: relative;
+      z-index: 1;
+      background-color: white;
     }
   </style>
 </head>
@@ -113,7 +118,67 @@
   </section>
 
   <main>
-    <!-- Main content unchanged -->
+    <section class="step" id="section-intro">
+      <p>Water on Earth is incredibly old. The water in your glass today may have passed through a volcano, a glacier, or even a dinosaur!</p>
+      <p>How is that possible?</p>
+      <p>Water on Earth doesn't disappear, but it is always on the move. It travels through a continuous journey called <strong>the water cycle</strong>—powered by energy from the Sun.</p>
+      <p>In this article, you will explore how water moves through the world, and build a model of the water cycle along the way.</p>
+    </section>
+
+    <section class="step" id="section-evaporation">
+      <h2>Goin’ Up!</h2>
+      <p>Water doesn't just stay in oceans, lakes, or puddles. It moves upward — into the air — in a process called <strong>evaporation</strong>.</p>
+      <p>When the Sun shines, it gives energy to water molecules on the surface. Some of those molecules get just enough energy to break free and float away as invisible water vapor.</p>
+      <p><em>Did you know?</em> Evaporation isn't the same as boiling. Boiling happens when <em>all</em> the water gets hot and bubbles. Evaporation only happens at the surface — even in a cold puddle.</p>
+      <div class="placeholder">[Animation placeholder: water molecules escaping into air]</div>
+    </section>
+
+    <section class="step" id="section-transpiration">
+      <h2>Plants Join In: Transpiration</h2>
+      <p>But water doesn’t just leave from lakes and oceans. It also escapes from <strong>plants</strong>!</p>
+      <p>Plants take up water from their roots and release it through tiny openings in their leaves. As the Sun warms the leaves, water evaporates into the air — just like from a puddle. This process is called <strong>transpiration</strong>.</p>
+      <p><em>Fun fact:</em> A single large tree can release over 100 gallons of water vapor in a day.</p>
+      <div class="placeholder">[Animation placeholder: water rising through plant]</div>
+    </section>
+
+    <section class="step" id="section-condensation">
+      <h2>What Goes Up, Must Come Down</h2>
+      <p>Imagine if water vapor just kept going up forever. Luckily, Earth's atmosphere has a plan.</p>
+      <p>As water vapor rises, it cools down. Cooler vapor molecules slow down, bump into each other, and stick together. This forms tiny liquid droplets — a process called <strong>condensation</strong>.</p>
+      <p>These droplets gather around tiny particles in the air (like dust or smoke) to form <strong>clouds</strong>.</p>
+      <div class="placeholder">[Animation placeholder: cloud formation from droplets]</div>
+    </section>
+
+    <section class="step" id="section-precipitation">
+      <h2>Time to Fall: Precipitation</h2>
+      <p>Clouds don’t hold water forever.</p>
+      <p>Inside a cloud, tiny droplets crash into each other and combine. Over time, they grow heavier and heavier — until gravity pulls them back down to Earth.</p>
+      <p>This falling water is called <strong>precipitation</strong>.</p>
+      <p>It can fall as rain, snow, sleet, or hail, depending on the temperature and altitude.</p>
+      <p>Sometimes, water vapor skips the liquid stage and turns directly into ice — this is called <strong>crystallization</strong>, and it forms snowflakes high in the sky.</p>
+      <div class="placeholder">[Animation placeholder: raindrop formation and falling]</div>
+    </section>
+
+    <section class="step" id="section-summary">
+      <h2>All Together Now</h2>
+      <p>The water cycle is a model scientists use to explain how water moves through Earth’s systems.</p>
+      <ul>
+        <li><strong>Evaporation</strong> from water surfaces</li>
+        <li><strong>Transpiration</strong> from plants</li>
+        <li><strong>Condensation</strong> to form clouds</li>
+        <li><strong>Precipitation</strong> as rain or snow</li>
+        <li><strong>Crystallization</strong> to form ice</li>
+      </ul>
+      <p>Together, these steps show how water <strong>changes states</strong>, <strong>moves through systems</strong>, and is <strong>powered by the Sun’s energy</strong>.</p>
+      <div class="placeholder">[Diagram placeholder: full water cycle]</div>
+    </section>
+
+    <section class="step" id="section-extension">
+      <h2>Beyond the Cycle: Fresh Water Matters</h2>
+      <p>Water on Earth is constantly recycled — but <strong>fresh water</strong> is limited.</p>
+      <p>Only about 3% of Earth’s water is fresh, and most of that is frozen in glaciers. The water we use for drinking, farming, and bathing must be carefully conserved.</p>
+      <p><em>Think about this:</em> How does the water cycle connect to <strong>climate change</strong>? What happens to the cycle when the planet warms?</p>
+    </section>
   </main>
 
   <script src="script.js"></script>
