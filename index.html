@@ -181,8 +181,8 @@
     </div>
   </section>
 
-  <div class="scrolly-container">
-    <main>
+  <main>
+    <div class="scrolly-container">
       <section class="step" id="section-intro">
         <div class="image" style="background-image: url('title_image_fpo.jpg');"></div>
         <div class="text">
@@ -192,7 +192,9 @@
           <p>In this article, you will explore how water moves through the world, and build a model of the water cycle along the way.</p>
         </div>
       </section>
+    </div>
 
+    <div class="scrolly-container">
       <section class="step" id="section-evaporation">
         <div class="image" style="background-image: url('image_evaporation_fpo.jpg');"></div>
         <div class="text">
@@ -202,7 +204,9 @@
           <p>This happens even at cool temperatures. Boiling happens when <em>all</em> the water gets hot and bubbles. Evaporation happens more slowly, molecule by molecule — even from a cold puddle.</p>
         </div>
       </section>
+    </div>
 
+    <div class="scrolly-container">
       <section class="step" id="section-transpiration">
         <div class="image" style="background-image: url('image_transpiration_fpo.jpg');"></div>
         <div class="text">
@@ -212,7 +216,9 @@
           <p>A single tree can release hundreds of liters of water vapor in a day.</p>
         </div>
       </section>
+    </div>
 
+    <div class="scrolly-container">
       <section class="step" id="section-condensation">
         <div class="image" style="background-image: url('image_condensation_fpo.jpg');"></div>
         <div class="text">
@@ -221,7 +227,9 @@
           <p>Those droplets group together around tiny dust particles to form clouds. Sometimes, you can even see condensation as fog close to the ground.</p>
         </div>
       </section>
+    </div>
 
+    <div class="scrolly-container">
       <section class="step" id="section-precipitation">
         <div class="image" style="background-image: url('image_precipitation_fpo.jpg');"></div>
         <div class="text">
@@ -230,19 +238,21 @@
           <p>Some of that water will soak into the ground. Some will run off into rivers and streams. And eventually, it all rejoins oceans, lakes, and other bodies of water… ready to start the cycle again!</p>
         </div>
       </section>
-    </main>
-  </div>
+    </div>
+  </main>
 
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    ScrollTrigger.create({
-      trigger: "#section-intro",
-      start: "top 30%",
-      end: "+=100%",
-      pin: ".scrolly-container",
-      pinSpacing: true,
-      markers: true
+    document.querySelectorAll(".scrolly-container").forEach((container) => {
+      ScrollTrigger.create({
+        trigger: container,
+        start: "top 30%",
+        end: "+=100%",
+        pin: container,
+        pinSpacing: true,
+        markers: true
+      });
     });
   </script>
 </body>
