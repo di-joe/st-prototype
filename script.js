@@ -14,7 +14,7 @@ gsap.fromTo(
       endTrigger: "#section-evaporation",
       end: "top 30%",   // fully seated as evaporation pins
       scrub: true,
-      markers: false
+      markers: true
     }
   }
 );
