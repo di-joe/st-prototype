@@ -1,74 +1,98 @@
-/* General resets */
+:root {
+  --header-h: 60px;
+  --gutter: 2rem;
+  --stage-w: 50vw;   /* left column width on desktop */
+}
+
+/* Reset-ish */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
 body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   line-height: 1.6;
   color: #222;
   background: #fff;
 }
 
-/* Layout */
-main {
-  max-width: 800px;
+/* Top bar (fixed) */
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1rem;
+  background: #000; color: #fff;
+  z-index: 1000;
+}
+.top-bar .brand { color: #fff; text-decoration: none; font-weight: 600; }
+.top-bar .menu { background: #fff; color: #000; border: 0; padding: .25rem .5rem; border-radius: 4px; cursor: pointer; }
+
+/* Fixed left stage for visuals */
+#leftStage {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  width: var(--stage-w);
+  height: calc(100vh - var(--header-h));
+  transform: translateY(100%); /* start off-screen; JS slides to 0% */
+  z-index: 10;                 /* above any background imagery */
+  pointer-events: none;        /* visual only */
+}
+#leftStage svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Right-side content column */
+.content {
+  margin-left: var(--stage-w);
+  padding-top: var(--header-h);
+}
+
+/* Each step fills (at least) a viewport */
+.step {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.step .text {
+  width: min(70ch, 70%);
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--gutter);
+  background: #fff; /* helps readability over visuals on small screens */
+  border-radius: 8px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
 }
 
-/* Section spacing */
-section.step {
-  margin-bottom: 4rem;
+/* Hero title a bit larger */
+.hero h1 {
+  font-size: clamp(2rem, 4vw + 1rem, 4rem);
+  margin: 0 0 .5rem;
 }
+.hero p { margin: 0; }
 
-/* Headings */
-h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin: 2rem 0;
-}
+/* Responsive: stack on narrow screens */
+@media (max-width: 900px) {
+  :root { --stage-w: 100vw; }
 
-h2 {
-  font-size: 1.75rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-/* Paragraphs */
-p {
-  margin-bottom: 1rem;
-}
-
-/* Placeholder boxes for visuals */
-.placeholder {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 2px dashed #aaa;
-  background-color: #f9f9f9;
-  text-align: center;
-  font-style: italic;
-  color: #666;
-}
-
-/* List style */
-ul {
-  padding-left: 1.5rem;
-}
-
-li {
-  margin-bottom: 0.5rem;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-  body {
-    font-size: 1rem;
-    padding: 1rem;
+  #leftStage {
+    position: sticky; /* let it scroll with content on mobile */
+    top: var(--header-h);
+    transform: translateY(0); /* no slide-in on small for simplicity */
+    height: 40vh;
   }
 
-  h1 {
-    font-size: 2rem;
+  .content {
+    margin-left: 0;
   }
 
-  h2 {
-    font-size: 1.5rem;
+  .step {
+    padding: 1rem 0 2rem;
+    min-height: auto;
+    align-items: flex-start;
+  }
+  .step .text {
+    width: min(70ch, 92%);
   }
 }

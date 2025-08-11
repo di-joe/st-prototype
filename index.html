@@ -1,259 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Earth’s Water Cycle</title>
-  <!-- <link rel="stylesheet" href="style.css"> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-size: 1rem;
-      font-family: "Segoe UI", sans-serif;
-      line-height: 1.6;
-      color: #222;
-      background: #fff;
-    }
-    .top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background-color: #000;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 1.5rem;
-      height: 60px;
-      box-sizing: border-box;
-    }
-    .top-bar-left,
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-    }
-    .logo-image {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-      display: block;
-    }
-    .logo-text,
-    .menu-text {
-      color: #fff;
-      margin: 0 0.5rem;
-      font-size: 0.9rem;
-      line-height: 1;
-    }
-    .menu-placeholder {
-      width: 30px;
-      height: 30px;
-      background-color: #fff;
-      border-radius: 3px;
-    }
-    .hero {
-      display: flex;
-      height: 100vh;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-    }
-    .hero .photo {
-      flex: 1;
-      background-image: url('title_image_fpo.jpg');
-      background-size: cover;
-      background-position: center;
-      position: fixed;
-      top: 60px;
-      bottom: 0;
-      left: 0;
-      width: 50%;
-      z-index: 0;
-    }
-    .hero .text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 20rem 2rem 2rem 2rem;
-      position: relative;
-      margin-left: 50%;
-    }
-    .hero .text h1 {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-    }
-    .hero .text p {
-      font-size: 1rem;
-      text-align: center;
-      position: absolute;
-      bottom: 100px;
-      width: 100%;
-    }
-    .scrolly-container {
-      position: relative;
-    }
-    .step {
-      display: flex;
-      flex-direction: row;
-      min-height: 100vh;
-      margin-bottom: 4rem;
-    }
-    .step .image {
-      flex: 1;
-      position: sticky;
-      top: 60px;
-      height: calc(100vh - 60px);
-      background-size: cover;
-      background-position: center;
-    }
-    .step .text {
-      flex: 1;
-      background-color: white;
-      padding: 2rem;
-      z-index: 1;
-      max-width: 70%;
-      margin-left: 25vw;
-      margin-right: 5vw;
-      font-size: 1.5rem;
-    }
-    h1 {
-      font-size: 2.5rem;
-      text-align: center;
-      margin: 2rem 0;
-    }
-    h2 {
-      font-size: 1.75rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      margin-bottom: 1rem;
-    }
-    ul {
-      padding-left: 1.5rem;
-    }
-    li {
-      margin-bottom: 0.5rem;
-    }
-    @media (max-width: 768px) {
-      .step {
-        flex-direction: column;
-      }
-      .step .image {
-        position: relative;
-        height: 300px;
-      }
-      .step .text {
-        padding: 1rem;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Water Cycle — Prototype v2</title>
+
+  <!-- GSAP + ScrollTrigger (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <a href="https://www.doubleinkpub.com" target="_blank">
-        <img src="flaskLogoSketch.png" alt="Double Ink logo" class="logo-image">
-      </a>
-      <span class="logo-text">logo placeholder</span>
-    </div>
-    <div class="top-bar-right">
-      <span class="menu-text">menu placeholder</span>
-      <div class="menu-placeholder" aria-label="Menu"></div>
-    </div>
+  <!-- Fixed top bar -->
+  <header class="top-bar">
+    <a class="brand" href="https://www.doubleinkpub.com" target="_blank" rel="noopener">Double Ink</a>
+    <button class="menu" aria-label="Menu">☰</button>
+  </header>
+
+  <!-- Fixed left “stage” for visuals (SVG, images, etc.) -->
+  <div id="leftStage" aria-hidden="true">
+    <!-- We inject your SVG inline here so we can target its layers -->
+    <div id="evapSvgHost"></div>
   </div>
 
-  <section class="hero">
-    <div class="photo"></div>
-    <div class="text">
-      <h1>Earth’s Water Cycle</h1>
-      <p>This article explains <strong>MS-ESS2-4 Earth’s Systems</strong>.</p>
-    </div>
-  </section>
+  <!-- Scrollable content on the right -->
+  <main class="content">
+    <!-- Hero / Title -->
+    <section class="step hero" id="section-hero">
+      <div class="text">
+        <h1>Earth’s Water Cycle</h1>
+        <p>This article explains <strong>MS‑ESS2‑4 Earth’s Systems</strong>.</p>
+      </div>
+    </section>
 
-  <main>
-    <div class="scrolly-container">
-      <section class="step" id="section-intro">
-        <div class="image" style="background-image: url('title_image_fpo.jpg');"></div>
-        <div class="text">
-          <p>Water on Earth is incredibly old. The water in your glass today may have passed through a volcano, a glacier, or even a dinosaur!</p>
-          <p>How is that possible?</p>
-          <p>Water on Earth doesn't disappear, but it is always on the move. It travels through a continuous journey called <strong>the water cycle</strong>—powered by energy from the Sun.</p>
-          <p>In this article, you will explore how water moves through the world, and build a model of the water cycle along the way.</p>
-        </div>
-      </section>
-    </div>
+    <!-- Intro -->
+    <section class="step" id="section-intro">
+      <div class="text">
+        <p>Water on Earth is incredibly old. The water in your glass today may have passed through a volcano, a glacier, or even a dinosaur!</p>
+        <p>How is that possible?</p>
+        <p>Water on Earth doesn't disappear, but it is always on the move. It travels through a continuous journey called <strong>the water cycle</strong>—powered by energy from the Sun.</p>
+        <p>In this article, you will explore how water moves through the world, and build a model of the water cycle along the way.</p>
+      </div>
+    </section>
 
-    <div class="scrolly-container">
-      <section class="step" id="section-evaporation">
-        <div class="image" style="background-image: url('image_evaporation_fpo.jpg');"></div>
-        <div class="text">
-          <h2>Goin’ Up!</h2>
-          <p>Water can escape from oceans, lakes, rivers, and even puddles. It moves upward — into the air — in a process called <strong>evaporation</strong>.</p>
-          <p>Evaporation happens when the Sun’s energy heats up water on the surface. Some of those molecules get just enough energy to break free and float away as water vapor.</p>
-          <p>This happens even at cool temperatures. Boiling happens when <em>all</em> the water gets hot and bubbles. Evaporation happens more slowly, molecule by molecule — even from a cold puddle.</p>
-        </div>
-      </section>
-    </div>
+    <!-- Evaporation -->
+    <section class="step" id="section-evaporation">
+      <div class="text">
+        <h2>Goin’ Up!</h2>
+        <p>Water moves into the air via <strong>evaporation</strong>.</p>
+        <p>Powered by the Sun, molecules at the surface gain enough energy to break free and become water vapor.</p>
+      </div>
+    </section>
 
-    <div class="scrolly-container">
-      <section class="step" id="section-transpiration">
-        <div class="image" style="background-image: url('image_transpiration_fpo.jpg');"></div>
-        <div class="text">
-          <h2>Water from Plants</h2>
-          <p>Some water vapor in the air also escapes from <strong>plants</strong>!</p>
-          <p>Plants absorb water through their roots, then release it through tiny openings in their leaves. As the Sun warms the leaf, water evaporates just like it would from a puddle. This process is called <strong>transpiration</strong>.</p>
-          <p>A single tree can release hundreds of liters of water vapor in a day.</p>
-        </div>
-      </section>
-    </div>
+    <!-- Add more steps as needed -->
+    <section class="step" id="section-transpiration">
+      <div class="text">
+        <h2>Water from Plants</h2>
+        <p>Plants release water vapor through tiny openings in their leaves — a process called <strong>transpiration</strong>.</p>
+      </div>
+    </section>
 
-    <div class="scrolly-container">
-      <section class="step" id="section-condensation">
-        <div class="image" style="background-image: url('image_condensation_fpo.jpg');"></div>
-        <div class="text">
-          <h2>Making Clouds</h2>
-          <p>As water vapor rises, it cools. When it gets cold enough, the water vapor turns back into tiny droplets. This process is called <strong>condensation</strong>.</p>
-          <p>Those droplets group together around tiny dust particles to form clouds. Sometimes, you can even see condensation as fog close to the ground.</p>
-        </div>
-      </section>
-    </div>
+    <section class="step" id="section-condensation">
+      <div class="text">
+        <h2>Making Clouds</h2>
+        <p>As water vapor rises, it cools and condenses into droplets that form clouds.</p>
+      </div>
+    </section>
 
-    <div class="scrolly-container">
-      <section class="step" id="section-precipitation">
-        <div class="image" style="background-image: url('image_precipitation_fpo.jpg');"></div>
-        <div class="text">
-          <h2>What Goes Up, Must Come Down</h2>
-          <p>When cloud droplets become large and heavy enough, they fall back to Earth as <strong>precipitation</strong> — rain, snow, sleet, or hail.</p>
-          <p>Some of that water will soak into the ground. Some will run off into rivers and streams. And eventually, it all rejoins oceans, lakes, and other bodies of water… ready to start the cycle again!</p>
-        </div>
-      </section>
-    </div>
+    <section class="step" id="section-precipitation">
+      <div class="text">
+        <h2>What Goes Up, Must Come Down</h2>
+        <p>When droplets grow heavy enough, they fall as rain, snow, sleet, or hail.</p>
+      </div>
+    </section>
   </main>
 
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
-
-    document.querySelectorAll(".scrolly-container").forEach((container) => {
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top 30%",
-        end: "+=100%",
-        pin: container,
-        pinSpacing: true,
-        markers: true
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
