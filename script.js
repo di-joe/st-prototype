@@ -42,10 +42,7 @@ fetch(SVG_URL)
     svgRoot.setAttribute('viewBox', '0 0 1366 768'); // your artwork size
   }
 
-  // Fit width, center vertically
-  svgRoot.setAttribute("preserveAspectRatio", "xMidYMid meet");
-  svgRoot.setAttribute("width", "100%");
-  svgRoot.removeAttribute("height"); // allow height:auto from CSS
+
 }
 
 
