@@ -2,7 +2,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // Load and inject the splash screen SVG
-const SPLASH_SVG = "splashScreen_v2.svg";
+const SPLASH_SVG = "splashScreen_v3.svg";
 
 fetch(SPLASH_SVG)
   .then(r => {
@@ -19,27 +19,135 @@ fetch(SPLASH_SVG)
     }
 
     // Hide all elements initially
-    gsap.set(splashSvg.querySelectorAll("*"), { opacity: 0 });
+  gsap.set([
+  "#logoD", "#logoI", "#d2", "#flask", "#flaskLip", "#d1", 
+  "#d3", "#d4", "#d5", "#d6", "#d7", "#d8", "#d9", "#scroll",
+  "#underscore", 
+
+  ], { opacity: 0 });
 
     // Animate logo sequence
     const splashTL = gsap.timeline();
 
     splashTL
       .to("#logoD", { opacity: 1, duration: 1 })
-      .to(["#logoI", "#d2"], { opacity: 1, duration: 0.8, stagger: 0.2 }, "+=0.1");
+      .to(["#logoI", "#d2"], { opacity: 1, duration: 1, stagger: 0.5 }, "+=0.1")
+      
+      .to("#underscore", { opacity: 1, duration: 0.5 })
+  
+      // Blinking effect
+      .to("#underscore", {
+      opacity: 0,
+      repeat: 3,
+      yoyo: true,
+      duration: 0.5,
+      ease: "none"
+      }, ) // slight delay after it appears
+
+      .to([], { duration: 0.3 }); // <-- pause before letters
 
     // Animate letters dropping in with bounce
-    const letters = ["#S", "#c", "#i", "#i_dot", "#e", "#n", "#c2", "#e2", "#exclamation"];
+    const letters = ["#S", "#c", "#i", "#i_dot", "#e", "#n", "#c2", "#e2"];
 
     letters.forEach((id) => {
       splashTL.from(id, {
-        y: "-150vh",
+        y: "-200vh",
         opacity: 0,
-        duration: 0.8,
-        ease: "bounce",
-      }, "+=0.05");
+        duration: 0.6,
+        ease: "back.out(2)",
+      }, "<+=0.1");
     });
+  splashTL
+  .from("#exclamation", {
+    scale: 100,
+    opacity: 0,
+    duration: 0.4,
+    transformOrigin: "center center",
+    ease: "none"
+  }, "+=0.1") // starts after last letter drops
+
+  .from("#point2", {
+    scale: 100,
+    opacity: 0,
+    duration: 0.4,
+    transformOrigin: "center center",
+    ease: "none"
+  }, "<+=0.1") // just after exclamation starts
+
+  .to("#point2", {
+  rotate: 3600,
+  duration: 1.5,
+  ease: "power4.out",
+  transformOrigin: "center center"
+  }, "<");
+
+  // 1) Fade out logoI, fade in flask and flaskLip
+  splashTL
+  .to("#logoI", {
+    opacity: 0,
+    duration: 0.6
+  }, "+=0.3") // slight delay after point slam
+
+  .to(["#flask", "#flaskLip"], {
+    opacity: 1,
+    duration: 0.6,
+    stagger: 0.1
+  }, "<"); // start flask fade as logoI fades out
+
+  const bubbleIds = ["#d1", "#d3", "#d4", "#d5", "#d6", "#d7", "#d8", "#d9"];
+
+  bubbleIds.forEach((id, i) => {
+  gsap.fromTo(id,
+    { scale: 0, opacity: 0 },
+    {
+      scale: 1,
+      opacity: 1,
+      duration: 1,
+      repeat: -1,
+      transformOrigin: "center center",
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: splashTL.duration() + i * 0.3
+    }
+  );
+  });
+
+  gsap.fromTo("#scroll",
+  { opacity: 0, y: 0 },
+  {
+    opacity: 1,
+    y: -10,
+    duration: 1,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+    delay: splashTL.duration() + 0.5 // starts after splash finishes
+  }
+  );
+
+
+
   })
+  
+let splashDismissed = false;
+
+function hideSplash() {
+if (splashDismissed) return;
+splashDismissed = true;
+
+// Fade out the splash screen
+gsap.to("#splashScreen", {
+    opacity: 0,
+    duration: 1,
+    onComplete: () => {
+      document.getElementById("splashScreen").style.display = "none";
+    }
+  });
+}
+
+// Detect first scroll interaction
+window.addEventListener("scroll", hideSplash, { once: true })
+  
   .catch(err => console.warn(err));
 
 

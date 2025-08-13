@@ -156,6 +156,7 @@ body {
   z-index: 2000;                   /* above everything else */
   pointer-events: none;           /* block interaction until removed */
   overflow: hidden;
+  transition: opacity 0.6s ease;
 }
 
 
