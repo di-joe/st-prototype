@@ -85,7 +85,7 @@ fetch(SVG_URL)
       start: "top 30%",
       end:   "bottom 30%",
       scrub: true,
-      markers: true,
+      markers: false,
       onUpdate: (self) => {
         const p = self.progress; // 0..1
         if (night) gsap.to(night, { opacity: 1 - p, overwrite: "auto" });
