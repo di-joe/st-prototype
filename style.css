@@ -62,7 +62,7 @@ body {
   left: 0;
   width: var(--stage-w);
   height: calc(100vh - var(--header-h));
-  border: crimson 4px solid; /* visualize area during dev */
+  /* border: crimson 4px solid; /* visualize area during dev */
   transform: translateY(0); /* change to 100% to start off-screen; JS slides to 0% */
   z-index: -1;                 /* below any text */
   pointer-events: none;        /* visual only */

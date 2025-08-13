@@ -109,6 +109,6 @@ document.querySelectorAll(".step:not(.hero)").forEach((step) => {
     pin: step,                // pin the whole step so only one is on screen
     pinSpacing: true,         // IMPORTANT: leave this true to prevent overlap
     anticipatePin: 1,         // smooths the start to avoid any jank
-    markers: true            // turn true while tuning
+    markers: false            // turn true while tuning
   });
 });
