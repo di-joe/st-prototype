@@ -163,6 +163,7 @@ body {
 
   .step {
     padding: 1rem 0 2rem;
+    padding-top: 30vh;
     min-height: auto;
     align-items: flex-start;
   }

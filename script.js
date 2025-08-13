@@ -5,11 +5,11 @@ gsap.registerPlugin(ScrollTrigger);
 // Crossfade hero image out as SVG scrolls in
 gsap.to("#heroImage", {
   scrollTrigger: {
-    trigger: "#section-evaporation",
-    start: "top bottom",    // Start fading when evap is near
-    end: "top 30%",         // Fully faded when pinned
+    trigger: "#section-intro",
+    start: "bottom 50% bottom",   // bottom of intro hits bottom of screen
+    end: "bottom 10% top",        // bottom of intro scrolls past top of screen
     scrub: true,
-    markers: false
+    markers: true
   },
   opacity: 0,
   ease: "none"
@@ -43,9 +43,9 @@ gsap.fromTo("#evapSvgHost",
     y: "0%",
     ease: "none",
     scrollTrigger: {
-      trigger: "#section-evaporation",
-      start: "top bottom",
-      end: "top 30%",
+      trigger: "#section-intro",
+      start: "bottom 50% bottom",
+      end: "bottom 10% top",
       scrub: true,
       markers: false
     }
