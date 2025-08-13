@@ -149,7 +149,10 @@ function hideSplash() {
 // Detect first scroll interaction
 window.addEventListener("scroll", hideSplash, { once: true })
   
-  .catch(err => console.warn(err));
+.catch(err => {
+  console.error("Failed to load evaporation SVG:", err);
+  alert("Evaporation SVG failed to load. Check file path and network connection.");
+});
 
 
 
