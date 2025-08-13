@@ -47,7 +47,7 @@ fetch(SPLASH_SVG)
       .to([], { duration: 0.3 }); // <-- pause before letters
 
     // Animate letters dropping in with bounce
-    const letters = ["#S", "#c", "#i", "#i_dot", "#e", "#n", "#c2", "#e2"];
+    const letters = ["#S", "#c", "#i", "#e", "#n", "#c2", "#e2"];
 
     letters.forEach((id) => {
       splashTL.from(id, {
@@ -149,10 +149,7 @@ function hideSplash() {
 // Detect first scroll interaction
 window.addEventListener("scroll", hideSplash, { once: true })
   
-.catch(err => {
-  console.error("Failed to load evaporation SVG:", err);
-  alert("Evaporation SVG failed to load. Check file path and network connection.");
-});
+
 
 
 
@@ -196,7 +193,6 @@ fetch(SVG_URL)
     if (night) gsap.set(night, { opacity: 1 });
     if (sun) gsap.set(sun, { y: "200%", transformOrigin: "50% 50%" });
 
-    // 🔥 Move this inside the block
     gsap.fromTo("#evapSvgHost", 
       { y: "100%" }, 
       { 
@@ -212,7 +208,6 @@ fetch(SVG_URL)
       }
     );
 
-    // Animate sun/night
     ScrollTrigger.create({
       trigger: "#section-evaporation",
       start: "top 30%",
@@ -226,7 +221,11 @@ fetch(SVG_URL)
       }
     });
   })
-  .catch(err => console.warn(err));
+  .catch(err => {
+    console.error("🔥 Error loading or animating evaporation SVG:", err);
+    alert("There was a problem loading the evaporation animation.");
+  });
+
 
 
 
