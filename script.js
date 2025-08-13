@@ -1,6 +1,48 @@
 /* global gsap, ScrollTrigger */
 gsap.registerPlugin(ScrollTrigger);
 
+// Load and inject the splash screen SVG
+const SPLASH_SVG = "splashScreen_v2.svg";
+
+fetch(SPLASH_SVG)
+  .then(r => {
+    if (!r.ok) throw new Error("Splash SVG fetch failed: " + r.status);
+    return r.text();
+  })
+  .then(svgText => {
+    const splashHost = document.getElementById("splashScreen");
+    splashHost.innerHTML = svgText;
+
+    const splashSvg = splashHost.querySelector("svg");
+    if (splashSvg && !splashSvg.hasAttribute("viewBox")) {
+      splashSvg.setAttribute("viewBox", "0 0 1920 1080"); // adjust if needed
+    }
+
+    // Hide all elements initially
+    gsap.set(splashSvg.querySelectorAll("*"), { opacity: 0 });
+
+    // Animate logo sequence
+    const splashTL = gsap.timeline();
+
+    splashTL
+      .to("#logoD", { opacity: 1, duration: 1 })
+      .to(["#logoI", "#d2"], { opacity: 1, duration: 0.8, stagger: 0.2 }, "+=0.1");
+
+    // Animate letters dropping in with bounce
+    const letters = ["#S", "#c", "#i", "#i_dot", "#e", "#n", "#c2", "#e2", "#exclamation"];
+
+    letters.forEach((id) => {
+      splashTL.from(id, {
+        y: "-150vh",
+        opacity: 0,
+        duration: 0.8,
+        ease: "bounce",
+      }, "+=0.05");
+    });
+  })
+  .catch(err => console.warn(err));
+
+
 
 // Crossfade hero image out as SVG scrolls in
 gsap.to("#heroImage", {

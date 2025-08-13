@@ -146,6 +146,19 @@ body {
       display: block;
     }
 
+#splashScreen {
+  position: fixed;
+  inset: 0;                         /* top: 0; right: 0; bottom: 0; left: 0 */
+  background: #000;                /* set to black */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;                   /* above everything else */
+  pointer-events: none;           /* block interaction until removed */
+  overflow: hidden;
+}
+
+
 /* Responsive: stack on narrow screens */
 @media (max-width: 900px) {
   :root { --stage-w: 100vw; }
