@@ -2,29 +2,56 @@
 gsap.registerPlugin(ScrollTrigger);
 
 
-
+// Crossfade hero image out as SVG scrolls in
+gsap.to("#heroImage", {
+  scrollTrigger: {
+    trigger: "#section-evaporation",
+    start: "top bottom",    // Start fading when evap is near
+    end: "top 30%",         // Fully faded when pinned
+    scrub: true,
+    markers: false
+  },
+  opacity: 0,
+  ease: "none"
+});
 
 // 1) Slide the leftStage up between INTRO and EVAPORATION pins
-gsap.fromTo(
-  "#leftStage",
-  { y: "100%" },
-  {
+// gsap.fromTo(
+//  "#leftStage",
+//  { y: "100%" },
+//  {
+//    y: "0%",
+//    ease: "none",
+//    scrollTrigger: {
+//      trigger: "#section-intro",
+//      start: "top 30%",
+//      endTrigger: "#section-evaporation",
+//      end: "top 30%",   // fully seated as evaporation pins
+//      scrub: true,
+//      markers: false
+//    }
+//  }
+//);
+
+// 2) Inline the SVG so we can animate internal layers reliably
+//    Put your exported file (with correct IDs) in the same folder.
+const SVG_URL = "waterCycle_evaporation-01.svg";
+
+gsap.fromTo("#evapSvgHost", 
+  { y: "100%" }, 
+  { 
     y: "0%",
     ease: "none",
     scrollTrigger: {
-      trigger: "#section-intro",
-      start: "top 30%",
-      endTrigger: "#section-evaporation",
-      end: "top 30%",   // fully seated as evaporation pins
+      trigger: "#section-evaporation",
+      start: "top bottom",
+      end: "top 30%",
       scrub: true,
       markers: false
     }
   }
 );
 
-// 2) Inline the SVG so we can animate internal layers reliably
-//    Put your exported file (with correct IDs) in the same folder.
-const SVG_URL = "waterCycle_evaporation-01.svg";
 
 fetch(SVG_URL)
   .then(r => {
@@ -41,8 +68,6 @@ fetch(SVG_URL)
   if (!svgRoot.hasAttribute('viewBox')) {
     svgRoot.setAttribute('viewBox', '0 0 1366 768'); // your artwork size
   }
-
-
 }
 
 
@@ -60,7 +85,7 @@ fetch(SVG_URL)
       start: "top 30%",
       end:   "bottom 30%",
       scrub: true,
-      markers: false,
+      markers: true,
       onUpdate: (self) => {
         const p = self.progress; // 0..1
         if (night) gsap.to(night, { opacity: 1 - p, overwrite: "auto" });
@@ -70,18 +95,7 @@ fetch(SVG_URL)
   })
   .catch(err => console.warn(err));
 
-// 4) Optional: per-step pinning (add as needed)
-// Example: pause each section for 100% viewport height
-// document.querySelectorAll(".step").forEach(step => {
-//   ScrollTrigger.create({
-//     trigger: step,
-//     start: "top 30%",
-//     end: "+=100%",
-//     pin: false,       // set true if you want the TEXT pinned; we keep text scrolling here
-//     scrub: false,
-//     markers: false
-//   });
-// });
+
 
 // Pin each step (except the hero) for a custom number of viewport heights.
 // Example: <section class="step" id="section-evaporation" data-hold="200">
