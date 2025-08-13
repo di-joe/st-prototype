@@ -132,15 +132,16 @@ fetch(SPLASH_SVG)
 let splashDismissed = false;
 
 function hideSplash() {
-if (splashDismissed) return;
-splashDismissed = true;
+  if (splashDismissed) return;
+  splashDismissed = true;
 
-// Fade out the splash screen
-gsap.to("#splashScreen", {
+  gsap.to("#splashScreen", {
     opacity: 0,
     duration: 1,
     onComplete: () => {
       document.getElementById("splashScreen").style.display = "none";
+      setupScrollSections(); // ✅ create the ScrollTriggers *after* splash is gone
+      ScrollTrigger.refresh(); // optional but good backup
     }
   });
 }
@@ -165,42 +166,11 @@ gsap.to("#heroImage", {
   ease: "none"
 });
 
-// 1) Slide the leftStage up between INTRO and EVAPORATION pins
-// gsap.fromTo(
-//  "#leftStage",
-//  { y: "100%" },
-//  {
-//    y: "0%",
-//    ease: "none",
-//    scrollTrigger: {
-//      trigger: "#section-intro",
-//      start: "top 30%",
-//      endTrigger: "#section-evaporation",
-//      end: "top 30%",   // fully seated as evaporation pins
-//      scrub: true,
-//      markers: false
-//    }
-//  }
-//);
+
 
 // 2) Inline the SVG so we can animate internal layers reliably
 //    Put your exported file (with correct IDs) in the same folder.
 const SVG_URL = "waterCycle_evaporation-01.svg";
-
-gsap.fromTo("#evapSvgHost", 
-  { y: "100%" }, 
-  { 
-    y: "0%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#section-intro",
-      start: "bottom 50% bottom",
-      end: "bottom 10% top",
-      scrub: true,
-      markers: false
-    }
-  }
-);
 
 
 fetch(SVG_URL)
@@ -212,34 +182,44 @@ fetch(SVG_URL)
     const host = document.getElementById("evapSvgHost");
     host.innerHTML = svgText;
 
-  const svgRoot = host.querySelector('svg');
-  if (svgRoot) {
-  // Ensure a viewBox is present (needed for proper scaling)
-  if (!svgRoot.hasAttribute('viewBox')) {
-    svgRoot.setAttribute('viewBox', '0 0 1366 768'); // your artwork size
-  }
-}
+    const svgRoot = host.querySelector('svg');
+    if (svgRoot && !svgRoot.hasAttribute('viewBox')) {
+      svgRoot.setAttribute('viewBox', '0 0 1366 768');
+    }
 
-
-    // Target layers by id (export from Illustrator with these names)
     const night = host.querySelector("#night");
-    const sun   = host.querySelector("#sun");
-    console.log("Found layers:", { night: !!night, sun: !!sun });
+    const sun = host.querySelector("#sun");
 
     if (night) gsap.set(night, { opacity: 1 });
-    if (sun)   gsap.set(sun,   { y: "200%", transformOrigin: "50% 50%" });
+    if (sun) gsap.set(sun, { y: "200%", transformOrigin: "50% 50%" });
 
-    // 3) Animate during the EVAPORATION section's pin
+    // 🔥 Move this inside the block
+    gsap.fromTo("#evapSvgHost", 
+      { y: "100%" }, 
+      { 
+        y: "0%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#section-intro",
+          start: "bottom 50% bottom",
+          end: "bottom 10% top",
+          scrub: true,
+          markers: false
+        }
+      }
+    );
+
+    // Animate sun/night
     ScrollTrigger.create({
       trigger: "#section-evaporation",
       start: "top 30%",
-      end:   "bottom 30%",
+      end: "bottom 30%",
       scrub: true,
       markers: false,
       onUpdate: (self) => {
-        const p = self.progress; // 0..1
+        const p = self.progress;
         if (night) gsap.to(night, { opacity: 1 - p, overwrite: "auto" });
-        if (sun)   gsap.to(sun,   { y: (200 - 200 * p) + "%", overwrite: "auto" });
+        if (sun) gsap.to(sun, { y: (200 - 200 * p) + "%", overwrite: "auto" });
       }
     });
   })
@@ -247,8 +227,10 @@ fetch(SVG_URL)
 
 
 
+
 // Pin each step (except the hero) for a custom number of viewport heights.
 // Example: <section class="step" id="section-evaporation" data-hold="200">
+function setupScrollSections() {
 document.querySelectorAll(".step:not(.hero)").forEach((step) => {
   const hold = parseInt(step.dataset.hold || "100", 10); // default 100% (one viewport)
 
@@ -262,3 +244,4 @@ document.querySelectorAll(".step:not(.hero)").forEach((step) => {
     markers: false            // turn true while tuning
   });
 });
+}
