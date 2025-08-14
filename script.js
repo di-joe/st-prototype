@@ -19,12 +19,12 @@ fetch(SPLASH_SVG)
     }
 
     // Hide all elements initially
-  gsap.set([
-  "#logoD", "#logoI", "#d2", "#flask", "#flaskLip", "#d1", 
-  "#d3", "#d4", "#d5", "#d6", "#d7", "#d8", "#d9", "#scroll",
-  "#underscore", 
+    gsap.set([
+      "#logoD", "#logoI", "#d2", "#flask", "#flaskLip", "#d1",
+      "#d3", "#d4", "#d5", "#d6", "#d7", "#d8", "#d9", "#scroll",
+      "#underscore",
 
-  ], { opacity: 0 });
+    ], { opacity: 0 });
 
     // Animate logo sequence
     const splashTL = gsap.timeline();
@@ -32,17 +32,17 @@ fetch(SPLASH_SVG)
     splashTL
       .to("#logoD", { opacity: 1, duration: 1 })
       .to(["#logoI", "#d2"], { opacity: 1, duration: 1, stagger: 0.5 }, "+=0.1")
-      
+
       .to("#underscore", { opacity: 1, duration: 0.5 })
-  
+
       // Blinking effect
       .to("#underscore", {
-      opacity: 0,
-      repeat: 3,
-      yoyo: true,
-      duration: 0.5,
-      ease: "none"
-      }, ) // slight delay after it appears
+        opacity: 0,
+        repeat: 3,
+        yoyo: true,
+        duration: 0.5,
+        ease: "none"
+      },) // slight delay after it appears
 
       .to([], { duration: 0.3 }); // <-- pause before letters
 
@@ -57,78 +57,78 @@ fetch(SPLASH_SVG)
         ease: "back.out(2)",
       }, "<+=0.1");
     });
-  splashTL
-  .from("#exclamation", {
-    scale: 100,
-    opacity: 0,
-    duration: 0.4,
-    transformOrigin: "center center",
-    ease: "none"
-  }, "+=0.1") // starts after last letter drops
+    splashTL
+      .from("#exclamation", {
+        scale: 100,
+        opacity: 0,
+        duration: 0.4,
+        transformOrigin: "center center",
+        ease: "none"
+      }, "+=0.1") // starts after last letter drops
 
-  .from("#point2", {
-    scale: 100,
-    opacity: 0,
-    duration: 0.4,
-    transformOrigin: "center center",
-    ease: "none"
-  }, "<+=0.1") // just after exclamation starts
+      .from("#point2", {
+        scale: 100,
+        opacity: 0,
+        duration: 0.4,
+        transformOrigin: "center center",
+        ease: "none"
+      }, "<+=0.1") // just after exclamation starts
 
-  .to("#point2", {
-  rotate: 3600,
-  duration: 1.5,
-  ease: "power4.out",
-  transformOrigin: "center center"
-  }, "<");
+      .to("#point2", {
+        rotate: 3600,
+        duration: 1.5,
+        ease: "power4.out",
+        transformOrigin: "center center"
+      }, "<");
 
-  // 1) Fade out logoI, fade in flask and flaskLip
-  splashTL
-  .to("#logoI", {
-    opacity: 0,
-    duration: 0.6
-  }, "+=0.3") // slight delay after point slam
+    // 1) Fade out logoI, fade in flask and flaskLip
+    splashTL
+      .to("#logoI", {
+        opacity: 0,
+        duration: 0.6
+      }, "+=0.3") // slight delay after point slam
 
-  .to(["#flask", "#flaskLip"], {
-    opacity: 1,
-    duration: 0.6,
-    stagger: 0.1
-  }, "<"); // start flask fade as logoI fades out
+      .to(["#flask", "#flaskLip"], {
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1
+      }, "<"); // start flask fade as logoI fades out
 
-  const bubbleIds = ["#d1", "#d3", "#d4", "#d5", "#d6", "#d7", "#d8", "#d9"];
+    const bubbleIds = ["#d1", "#d3", "#d4", "#d5", "#d6", "#d7", "#d8", "#d9"];
 
-  bubbleIds.forEach((id, i) => {
-  gsap.fromTo(id,
-    { scale: 0, opacity: 0 },
-    {
-      scale: 1,
-      opacity: 1,
-      duration: 1,
-      repeat: -1,
-      transformOrigin: "center center",
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: splashTL.duration() + i * 0.3
-    }
-  );
-  });
+    bubbleIds.forEach((id, i) => {
+      gsap.fromTo(id,
+        { scale: 0, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          repeat: -1,
+          transformOrigin: "center center",
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: splashTL.duration() + i * 0.3
+        }
+      );
+    });
 
-  gsap.fromTo("#scroll",
-  { opacity: 0, y: 0 },
-  {
-    opacity: 1,
-    y: -10,
-    duration: 1,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-    delay: splashTL.duration() + 0.5 // starts after splash finishes
-  }
-  );
+    gsap.fromTo("#scroll",
+      { opacity: 0, y: 0 },
+      {
+        opacity: 1,
+        y: -10,
+        duration: 1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: splashTL.duration() + 0.5 // starts after splash finishes
+      }
+    );
 
 
 
   })
-  
+
 let splashDismissed = false;
 
 function hideSplash() {
@@ -148,7 +148,7 @@ function hideSplash() {
 
 // Detect first scroll interaction
 window.addEventListener("scroll", hideSplash, { once: true })
-  
+
 
 
 
@@ -193,9 +193,9 @@ fetch(SVG_URL)
     if (night) gsap.set(night, { opacity: 1 });
     if (sun) gsap.set(sun, { y: "200%", transformOrigin: "50% 50%" });
 
-    gsap.fromTo("#evapSvgHost", 
-      { y: "100%" }, 
-      { 
+    gsap.fromTo("#evapSvgHost",
+      { y: "100%" },
+      {
         y: "0%",
         ease: "none",
         scrollTrigger: {
@@ -233,17 +233,17 @@ fetch(SVG_URL)
 // Pin each step (except the hero) for a custom number of viewport heights.
 // Example: <section class="step" id="section-evaporation" data-hold="200">
 function setupScrollSections() {
-document.querySelectorAll(".step:not(.hero)").forEach((step) => {
-  const hold = parseInt(step.dataset.hold || "100", 10); // default 100% (one viewport)
+  document.querySelectorAll(".step:not(.hero)").forEach((step) => {
+    const hold = parseInt(step.dataset.hold || "100", 10); // default 100% (one viewport)
 
-  ScrollTrigger.create({
-    trigger: step,
-    start: "top top",         // pin when step hits the top of the viewport
-    end: `+=${hold}%`,        // hold for N% of viewport height
-    pin: step,                // pin the whole step so only one is on screen
-    pinSpacing: true,         // IMPORTANT: leave this true to prevent overlap
-    anticipatePin: 1,         // smooths the start to avoid any jank
-    markers: false            // turn true while tuning
+    ScrollTrigger.create({
+      trigger: step,
+      start: "top top",         // pin when step hits the top of the viewport
+      end: `+=${hold}%`,        // hold for N% of viewport height
+      pin: step,                // pin the whole step so only one is on screen
+      pinSpacing: true,         // IMPORTANT: leave this true to prevent overlap
+      anticipatePin: 1,         // smooths the start to avoid any jank
+      markers: false            // turn true while tuning
+    });
   });
-});
 }

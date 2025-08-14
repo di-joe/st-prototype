@@ -1,12 +1,21 @@
 :root {
   --header-h: 60px;
   --gutter: 2rem;
-  --stage-w: 50vw;   /* left column width on desktop */
+  --stage-w: 50vw;
+  /* left column width on desktop */
 }
 
 /* Reset-ish */
-* { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   line-height: 1.6;
@@ -23,8 +32,10 @@ body {
   height: 60px;
   background-color: black;
   display: flex;
-  justify-content: space-between; /* space between brand and menu */
-  align-items: center;            /* vertical centering */
+  justify-content: space-between;
+  /* space between brand and menu */
+  align-items: center;
+  /* vertical centering */
   padding: 0 1rem;
   z-index: 1000;
 }
@@ -32,7 +43,8 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* space between logo and text */
+  gap: 0.5rem;
+  /* space between logo and text */
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
@@ -40,7 +52,8 @@ body {
 
 .logo-image {
   display: block;
-  height: 50px; /* logo size */
+  height: 50px;
+  /* logo size */
 }
 
 .menu {
@@ -63,9 +76,12 @@ body {
   width: var(--stage-w);
   height: calc(100vh - var(--header-h));
   /* border: crimson 4px solid; /* visualize area during dev */
-  transform: translateY(0); /* change to 100% to start off-screen; JS slides to 0% */
-  z-index: -1;                 /* below any text */
-  pointer-events: none;        /* visual only */
+  transform: translateY(0);
+  /* change to 100% to start off-screen; JS slides to 0% */
+  z-index: -1;
+  /* below any text */
+  pointer-events: none;
+  /* visual only */
   overflow: hidden
 }
 
@@ -74,22 +90,23 @@ body {
   height: auto;
   max-height: 100%;
   display: block;
-  }
+}
 
 #leftStage img {
   width: 100%;
   height: auto;
   max-width: 100%;
   display: block;
-  }
-  
-#heroImage { 
+}
+
+#heroImage {
   width: 100%;
   height: auto;
   max-height: 100%;
   object-fit: contain;
   z-index: 0;
 }
+
 #evapSvgHost {
   position: absolute;
   width: 100%;
@@ -101,7 +118,7 @@ body {
   transform: translateY(100%)
 }
 
-#evapSvgHost > svg {
+#evapSvgHost>svg {
   width: 100%;
   height: auto;
   max-height: 100%;
@@ -121,11 +138,13 @@ body {
   display: flex;
   align-items: center;
 }
+
 .step .text {
   width: min(70ch, 70%);
   margin: 0 auto;
   padding: var(--gutter);
-  background: #fff; /* helps readability over visuals on small screens */
+  background: #fff;
+  /* helps readability over visuals on small screens */
   border-radius: 8px;
   font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
 }
@@ -140,38 +159,128 @@ body {
   font-size: clamp(2rem, 4vw + 1rem, 4rem);
   margin: 0 0 .5rem;
 }
-.hero p { margin: 0; }
+
+.hero p {
+  margin: 0;
+}
 
 /* Box for logo */
 .logo-image {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-      display: block;
-    }
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+}
 
 #splashScreen {
   position: fixed;
-  inset: 0;                         /* top: 0; right: 0; bottom: 0; left: 0 */
-  background: #000;                /* set to black */
+  inset: 0;
+  /* top: 0; right: 0; bottom: 0; left: 0 */
+  background: #000;
+  /* set to black */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;                   /* above everything else */
-  pointer-events: none;           /* block interaction until removed */
+  z-index: 2000;
+  /* above everything else */
+  pointer-events: none;
+  /* block interaction until removed */
   overflow: hidden;
   transition: opacity 0.6s ease;
 }
 
+/* ───────────── Caption tokens (colors, spacing) ───────────── */
+/* style.css — NEW (append near bottom) */
+:root {
+  /* high-contrast defaults; tweak to taste */
+  --caption-bg: #041f48;
+  /* deep blue background */
+  --caption-fg: #ffffff;
+  /* white text */
+  /* --caption-pill-fg: #093a8f; */
+  /* readable text on the pill */
+  /*--caption-shadow: 0 6px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.12);*/
+  --caption-radius: 20px;
+}
+
+/* ───────────── Caption step variant ───────────── */
+/* Make any step a “caption” by adding .caption to the section */
+.step.caption .text {
+  background: var(--caption-bg);
+  color: var(--caption-fg);
+  border-radius: var(--caption-radius);
+  box-shadow: var(--caption-shadow);
+  border-left: 6px solid var(--caption-accent);
+  position: relative;
+  /* enables the label ::before positioning */
+  /* give a little extra top padding to make room for the label pill */
+  /*padding-top: calc(var(--gutter) + 0.35rem);*/
+}
+
+/* keep strong/emphasis/links readable inside dark backgrounds */
+.step.caption .text strong,
+.step.caption .text b {
+  color: var(--caption-fg);
+}
+
+.step.caption .text em,
+.step.caption .text i {
+  color: var(--caption-fg);
+}
+
+.step.caption .text a {
+  color: var(--caption-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* optional tiny “Caption” label (automatic) 
+.step.caption .text::before {
+  content: "Animation caption";
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  font-size: 0.78rem;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--caption-accent);
+  color: var(--caption-pill-fg);
+  letter-spacing: .02em;
+  font-weight: 600;
+}
+*/
+/* If you want to supply a custom label from HTML later:
+   <section class="step caption" data-label="Evaporation step 1">…</section>
+   Uncomment this block to use the attribute text instead of the default.
+
+.step.caption[data-label] .text::before {
+  content: attr(data-label);
+}
+*/
+
+/* ───────────── Mobile polish ───────────── */
+@media (max-width: 900px) {
+
+  /* ensure caption text stays readable and padded on small screens */
+  .step.caption .text {
+    width: min(70ch, 92%);
+    padding-top: calc(var(--gutter) + 0.5rem);
+  }
+}
 
 /* Responsive: stack on narrow screens */
 @media (max-width: 900px) {
-  :root { --stage-w: 100vw; }
+  :root {
+    --stage-w: 100vw;
+  }
 
   #leftStage {
-    position: sticky; /* let it scroll with content on mobile */
+    position: sticky;
+    /* let it scroll with content on mobile */
     top: var(--header-h);
-    transform: translateY(0); /* no slide-in on small for simplicity */
+    transform: translateY(0);
+    /* no slide-in on small for simplicity */
     height: 40vh;
   }
 
@@ -185,6 +294,7 @@ body {
     min-height: auto;
     align-items: flex-start;
   }
+
   .step .text {
     font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
     width: min(70ch, 92%);
