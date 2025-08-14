@@ -44,7 +44,7 @@ fetch(SPLASH_SVG)
       ease: "none"
       }, ) // slight delay after it appears
 
-      .to([], { duration: 0.3 }); // <-- pause before letters
+      .to(null, { duration: 0.3 }); // <-- pause before letters
 
     // Animate letters dropping in with bounce
     const letters = ["#S", "#c", "#i", "#e", "#n", "#c2", "#e2"];
